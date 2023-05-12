@@ -34,7 +34,7 @@ BaselineOfMagritte >> baseline310CommonExtDeps: spec [
 	"Common external dependencies for baseline 3.1.0"
 	
 	spec
-		baseline: 'Grease' with: [ spec repository: 'github://SeasideSt/Grease:v1.9.0/repository' ];	
+		baseline: 'Grease' with: [ spec repository: 'github://objectguild/Grease:v1.12.x' ];
 		baseline: 'Seaside3'
 			with: [ "note: we do not want to depend on Zinc, since this is not present in Squeak. Currently no adapter is loaded"
 			spec
@@ -45,7 +45,7 @@ BaselineOfMagritte >> baseline310CommonExtDeps: spec [
 { #category : #baselines }
 BaselineOfMagritte >> baseline330ForPharo: spec [
 			
-	spec for: #(#'pharo7.x' #'pharo8.x' #'pharo9.x' #'pharo10.x') do: [ 
+	spec for: #(#'pharo7.x' #'pharo8.x' #'pharo9.x' #'pharo10.x' #'pharo11.x') do: [ 
 		spec 
 			baseline: 'PharoEnhancements' with: [ spec repository: 'github://seandenigris/Pharo-Enhancements' ].
 		spec
@@ -114,10 +114,7 @@ BaselineOfMagritte >> baseline: spec [
 			spec description: 'For pharo4.x, add Magritte-GT package and add it to the default group'.
 			self baseline310CommonExtDeps: spec.
 			spec
-				package: 'Magritte-Model' with: [ 
-					spec 
-						requires: #('Grease');
-						includes: #('Magritte-Deprecated3dot7') ];
+				package: 'Magritte-Model' with: [ spec requires: #('Grease') ];
 				package: 'Magritte-Deprecated3dot7' with: [ spec requires: #('Magritte-Model' 'Magritte-Morph') ];
 				package: 'Magritte-Tests-Model' with: [ spec requires: #('Magritte-Model') ];
 				package: 'Magritte-Tests-Files-Model' with: [ spec requires: #('Grease' 'Magritte-Tests-Model') ];

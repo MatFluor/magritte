@@ -26,7 +26,7 @@ Class {
 
 { #category : #accessing }
 MAFileDatabase class >> baseDirectory [
-	^ baseDirectory ifNil: [ FileLocator imageDirectory / 'files' ].
+	^ baseDirectory ifNil: [ (FileLocator imageDirectory / 'files') ensureCreateDirectory ].
 ]
 
 { #category : #accessing }

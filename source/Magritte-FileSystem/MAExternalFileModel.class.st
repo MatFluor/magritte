@@ -50,7 +50,7 @@ MAExternalFileModel >> baseUrl [
 { #category : #accessing }
 MAExternalFileModel >> contents [
 	| stream |
-	^ self file exists
+	^ (self file exists and: (self isEmpty = false))
 		ifFalse: [ ByteArray new ]
 		ifTrue: [
 			stream := self readStream.
@@ -76,24 +76,20 @@ MAExternalFileModel >> database [
 { #category : #'accessing-dynamic' }
 MAExternalFileModel >> directory [
 
-	^ directory ifNil: [ directory := self database uniqueLocation ].
+	^ directory ifNil: [ directory := self database baseDirectory ].
 ]
 
 { #category : #'accessing-dynamic' }
 MAExternalFileModel >> file [
-	^(self directory / self filename) asFileReference
+	^(self directory / self filename)
 ]
 
 { #category : #initialization }
 MAExternalFileModel >> finalize [
-	|  dir |
-	dir := self directory.
-	dir exists
-		ifTrue: [ dir deleteAll ].
-	[ (dir := dir parent) hasChildren ]
-		whileFalse: [ dir ensureDelete ].
-	super finalize.
-	location := nil
+	(self directory / self filename) ensureDelete.
+	filesize := 0.
+	filename:= ''.
+	mimetype := self class defaultMimeType
 ]
 
 { #category : #comparing }

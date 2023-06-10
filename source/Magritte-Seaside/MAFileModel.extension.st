@@ -17,10 +17,9 @@ MAFileModel >> renderOn: html [
 MAFileModel >> url [
 	"Answer a link to a request handler for the given file."
 	| handler |
+	
 	handler := MAFileModelHandler on: self.
-	^ WACurrentRequestContext value registry
-		register: handler;
-		urlFor: handler
+	^ WACurrentRequestContext value session register: handler
 ]
 
 { #category : #'*magritte-seaside-accessing' }

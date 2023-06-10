@@ -56,7 +56,7 @@ BaselineOfMagritte >> baseline330ForPharo: spec [
 			package: 'Magritte-Tests-Files-Model' with: [ spec requires: #('Magritte-FileSystem') ];
 			package: 'Magritte-Tests-Model' with: [ spec includes: #('Magritte-Tests-Files-Model') ].
 		spec group: 'default' with: #('Magritte-Developer');
-			  group: 'seasideFilesystem' with: #('Magritte-Filesystem' 'Magritte-Pharo-Model' 'Magritte-Seaside') ].
+			  group: 'seasideFilesystem' with: #('Magritte-FileSystem' 'Magritte-Pharo-Model' 'Magritte-Seaside') ].
 	
 	spec for: #(#'pharo9.x') do: [
 		spec

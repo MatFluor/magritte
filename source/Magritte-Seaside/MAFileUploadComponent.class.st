@@ -4,7 +4,7 @@ I'm the MAFileDescription seaside component. With me user can upload files to th
 Class {
 	#name : #MAFileUploadComponent,
 	#superclass : #MAElementComponent,
-	#category : 'Magritte-Seaside-Components'
+	#category : #'Magritte-Seaside-Components'
 }
 
 { #category : #testing }
@@ -19,8 +19,9 @@ MAFileUploadComponent >> hasLabelId [
 
 { #category : #actions }
 MAFileUploadComponent >> remove [
-	self value isNil
-		ifFalse: [ self value finalize ].
+
+	self value ifNotNil: [
+		(self value directory / self value filename) ensureDelete ].
 	self value: nil
 ]
 
@@ -40,21 +41,23 @@ MAFileUploadComponent >> renderRemoveOn: html [
 
 { #category : #rendering }
 MAFileUploadComponent >> renderUploadOn: html [
+
 	html fileUpload
 		id: self labelId;
 		on: #upload of: self.
-	html submitButton
-		text: 'upload'
+	html submitButton text: 'upload'
 ]
 
 { #category : #rendering }
 MAFileUploadComponent >> renderViewerOn: html [
+
 	html render: self value
 ]
 
 { #category : #testing }
 MAFileUploadComponent >> requiresMultipartForm [
-	^ self isReadOnly not and: [ self value isNil or: [ self value isEmpty ] ]
+
+	^ self isReadOnly not and: self value isEmptyOrNil
 ]
 
 { #category : #actions }
